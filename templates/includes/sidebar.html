@@ -1,0 +1,14 @@
+<ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <li class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+  {% else %}
+    <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+  {% endif %}
+  <br>
+  <li class="list-group-item"><a class="link-sidebar" href="{% url 'kitchen_service:index' %}">Home</a></li>
+  <li class="list-group-item"><a class="link-sidebar" href="{% url 'kitchen_service:dish-type-list' %}">All Dish Types</a></li>
+  <li class="list-group-item"><a class="link-sidebar" href="{% url 'kitchen_service:dish-list' %}">Our Menu</a></li>
+  <li class="list-group-item"><a class="link-sidebar" href="{% url 'kitchen_service:cook-list' %}">Staff</a></li>
+{#  <li class="list-group-item"><a class="link-sidebar" href="{% url 'kitchen_service:message-list' %}">Reviews</a></li>#}
+</ul>

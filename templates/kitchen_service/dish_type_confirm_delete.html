@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>Are you sure? If you delete type: {{ dishtype }}</p>
+  <p><i>All dishes with {{ dishtype }} types also will be deleted!</i></p>
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <input type="submit" value="Yes" class="btn btn-danger">
+    <a class="btn btn-primary"  href="{% url 'kitchen_service:dish-type-list' %}">No</a>
+  </form>
+{% endblock %}

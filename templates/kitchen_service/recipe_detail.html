@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Recipe for {{ recipe.dish.dish_type.name }} {{ recipe.dish.name }}
+    <a href="{% url 'kitchen_service:recipe-delete' pk=recipe.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+
+    <a href="{% url 'kitchen_service:recipe-update' pk=recipe.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h1>
+  <h1>
+    Ingridients:
+  <ul>
+    {% for ingridient in recipe.ingredients.all %}
+      <li>{{ ingridient.name}}</li>
+    {% endfor %}
+  </ul>
+  </h1>>
+  <div>
+    {{ recipe.description }}
+  </div>
+{% endblock %}

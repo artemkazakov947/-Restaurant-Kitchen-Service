@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete recipe</h1>
+
+  <p>Are you sure? If you delete recipe: {{ recipe }}</p>
+  <p><i>{{ recipe.dish.dish_type.name }} {{ recipe.dish.name }} also will be deleted!</i></p>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Yes, delete.">
+    <a class="btn btn-primary"  href="{% url 'kitchen_service:dish-detail' pk=recipe.dish.id%}">No</a>
+  </form>
+{% endblock %}
