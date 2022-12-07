@@ -52,7 +52,7 @@ class Dish(models.Model):
 
     class Meta:
         verbose_name_plural = "dishes"
-        # ordering = ("dish_type__name",) #TODO apply ordering by type
+        ordering = ("dish_type",)
 
     def __str__(self):
         return f"{self.name}, (price:{self.price} dish type: {self.dish_type})"
@@ -67,3 +67,17 @@ class Recipe(models.Model):
 
     def __str__(self):
         return f"Recipe for {self.dish.name}"
+
+
+class Task(models.Model):
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField(blank=True, null=True)
+    is_done = models.BooleanField(default=False)
+    cook = models.ForeignKey(Cook, on_delete=models.CASCADE, related_name="tasks")
+
+    class Meta:
+        ordering = ["is_done", "-created"]
+
+    def __str__(self):
+        return f"{self.content} for {self.cook} is done: {self.is_done}"

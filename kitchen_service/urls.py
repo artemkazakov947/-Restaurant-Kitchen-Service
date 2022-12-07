@@ -17,7 +17,14 @@ from kitchen_service.views import (index,
                                    RecipeDetailView,
                                    RecipeCreateView,
                                    RecipeUpdateView,
-                                   RecipeDeleteView, toggle_me_to_dish, )
+                                   RecipeDeleteView,
+                                   toggle_me_to_dish,
+                                   TaskListView,
+                                   mark_complete_or_undo,
+                                   TaskCreateView,
+                                   TaskUpdateView,
+                                   TaskDeleteView,
+                                   )
 
 urlpatterns = [
     path("", index, name="index"),
@@ -39,6 +46,11 @@ urlpatterns = [
     path("recipe/create/", RecipeCreateView.as_view(), name="recipe-create"),
     path("recipe/<int:pk>/update/", RecipeUpdateView.as_view(), name="recipe-update"),
     path("recipe/<int:pk>/delete/", RecipeDeleteView.as_view(), name="recipe-delete"),
+    path("tasks/", TaskListView.as_view(), name="task-list"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
+    path("task/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
+    path("task/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
+    path("tasks/<int:pk>/mark_task/", mark_complete_or_undo, name="task-mark"),
                 ]
 
 

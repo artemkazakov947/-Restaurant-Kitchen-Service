@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+  {% block content %}
+    <h1>List of tasks</h1>
+    {% if user.is_staff == True %}
+    <a class="btn btn-primary link-to-page float-right" href="{% url 'kitchen_service:task-create' %}">Create</a>
+    {% endif %}
+    {% if task_list %}
+    {% for task in task_list %}
+      <br>
+      <hr>
+      <h3>Task for {{ task.cook.first_name }} {{ task.cook.last_name }} ({{ task.cook.specialization }})</h3>
+      <h4>{{ task.content }}
+        {% if task.is_done == False %}
+        <span class="text-danger">Isn't done</span>
+      {% else %}
+        <span class="text-success">Done</span>
+      {% endif %}</h4>
+      {% if task.is_done %}
+        <a class="btn btn-secondary link-to-page float-right" href="{% url 'kitchen_service:task-mark' pk=task.id %}">Undo</a>
+      {% else %}
+        <a class="btn btn-success link-to-page float-right" href="{% url 'kitchen_service:task-mark' pk=task.id %}">Complete</a>
+      {% endif %}
+
+      <p>Created: {{ task.created }} {% if task.deadline %} <span class="text-danger">Deadline:{{ task.deadline }}</span> {% endif %}</p>
+      <p>{% if user.is_staff == True %}
+          <a class="btn btn-success link-to-page float-right" href="{% url 'kitchen_service:task-update' pk=task.id %}">Edit</a>
+          <a class="btn btn-danger link-to-page float-right" href="{% url 'kitchen_service:task-delete' pk=task.id %}">Delete</a>
+        {% endif %}</p>
+      <br>
+    {% endfor %}
+  {% else %}
+    <h1>There is no tasks</h1>
+  {% endif %}
+  {% endblock %}

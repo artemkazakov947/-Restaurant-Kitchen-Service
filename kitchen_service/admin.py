@@ -7,11 +7,13 @@ from kitchen_service.models import (
     Dish,
     Cook,
     Ingredient,
+    Task,
 )
 
 admin.site.register(DishType)
 admin.site.register(Recipe)
 admin.site.register(Ingredient)
+admin.site.register(Task)
 
 
 @admin.register(Dish)

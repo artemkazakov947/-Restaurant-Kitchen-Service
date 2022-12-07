@@ -5,11 +5,13 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from kitchen_service.forms import DishForm, RecipeForm, CookCreationForm, DishSearchForm
+from kitchen_service.forms import DishForm, RecipeForm, CookCreationForm, DishSearchForm, TaskForm
 from kitchen_service.models import (
     Cook,
     Dish,
-    DishType, Recipe,
+    DishType,
+    Recipe,
+    Task,
 )
 
 
@@ -63,7 +65,7 @@ class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     queryset = Dish.objects.all().select_related("dish_type")
-    paginate_by = 4
+    # paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
@@ -151,3 +153,40 @@ class RecipeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
     success_url = reverse_lazy("kitchen_service:dish-list")
 
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    queryset = Task.objects.all()
+    paginate_by = 2
+
+    def get_queryset(self):
+        if self.request.user.is_staff is True:
+            return self.queryset
+        return self.queryset.filter(cook=self.request.user)
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("kitchen_service:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("kitchen_service:task-list")
+
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("kitchen_service:task-list")
+
+
+def mark_complete_or_undo(request, pk):
+    task = Task.objects.get(id=pk)
+    if task.is_done is False:
+        task.is_done = True
+    else:
+        task.is_done = False
+    task.save()
+    return HttpResponseRedirect(reverse_lazy("kitchen_service:task-list"))

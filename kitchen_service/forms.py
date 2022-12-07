@@ -2,7 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
-from kitchen_service.models import Dish, Ingredient, Cook
+from kitchen_service.models import (Dish,
+                                    Ingredient,
+                                    Cook,
+                                    Task,)
 
 
 class CookCreationForm(UserCreationForm):
@@ -43,3 +46,10 @@ class DishSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": "search by name..."})
     )
 
+
+class TaskForm(forms.ModelForm):
+    deadline = forms.DateTimeField(widget=forms.SelectDateWidget)
+
+    class Meta:
+        model = Task
+        fields = "__all__"
