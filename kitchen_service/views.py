@@ -27,7 +27,7 @@ def index(request):
     context = {
         "num_cooks": num_cooks,
         "num_dishes": num_dishes,
-        "num_dish_type": num_dish_type,
+        "num_dish_types": num_dish_type,
         "num_visits": num_visits + 1,
     }
 
@@ -39,7 +39,7 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     template_name = "kitchen_service/dish_type_list.html"
     context_object_name = "dish_type_list"
     queryset = DishType.objects.all()
-    paginate_by = 4
+    paginate_by = 5
 
 
 class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
@@ -65,7 +65,7 @@ class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     queryset = Dish.objects.all().select_related("dish_type")
-    # paginate_by = 4
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
