@@ -1,17 +1,28 @@
-{% extends "base.html" %}
-{#{% load crispy_forms_filters %}#}
+{% extends "base_2.html" %}
 
 {% block content %}
+<header class="header-2">
+    <div class="page-header min-vh-75 relative" style="background-image: url('{{ ASSETS_ROOT }}/img/hero-bg.jpg')">
+      <span class="mask bg-gradient-primary opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Kitchen service</h1>
+            <p class="lead text-white mt-3">Fast food restaurant`s kitchen management <br />  </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
     <h1>
       Cook List
-      <a href="{% url 'kitchen_service:cook-create' %}" class="btn btn-primary link-to-page">
+      <a href="{% url 'kitchen_service:cook-create' %}" class="btn btn-info link-to-page">
         Create
       </a>
     </h1>
   <form action="" method="get" class="form-inline">
-{#    {{ search_form|crispy }}#}
-{#    <input type="submit" value="👨🏼‍🔍" class="btn btn-secondary">#}
-{#  </form>#}
+
 
     {% if cook_list %}
     <table class="table">
@@ -25,7 +36,7 @@
     {% for cook in cook_list %}
       <tr>
         <td>{{ cook.id }}</td>
-        <td><a href="{{ cook.get_absolute_url }}">{{ cook.username }} {% if user == cook %} (Me){% endif %}</a></td>
+        <td><a type="button" class="btn btn-secondary float-start" href="{{ cook.get_absolute_url }}">{{ cook.username }} {% if user == cook %} <span style="color:chartreuse;">(Me)</span>{% endif %}</a></td>
         <td>{{ cook.first_name }}</td>
         <td>{{ cook.last_name }}</td>
         <td>{{ cook.specialization }}</td>
@@ -36,4 +47,6 @@
     {% else %}
       <p>There are no drivers in the service.</p>
     {% endif %}
+    {% include "includes/pagination.html" %}
+  </div>
 {% endblock %}

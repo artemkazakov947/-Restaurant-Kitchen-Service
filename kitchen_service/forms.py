@@ -5,7 +5,9 @@ from django.contrib.auth import get_user_model
 from kitchen_service.models import (Dish,
                                     Ingredient,
                                     Cook,
-                                    Task,)
+                                    Task,
+                                    Recipe,
+                                    )
 
 
 class CookCreationForm(UserCreationForm):
@@ -34,7 +36,7 @@ class RecipeForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Dish
+        model = Recipe
         fields = "__all__"
 
 

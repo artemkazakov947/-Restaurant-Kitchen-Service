@@ -1,27 +1,43 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>
-    Our menu!
-    <a href="{% url 'kitchen_service:dish-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
-  <form action="" method="get" class="form-inline">
-    {{ search_form|crispy }}
-    <input type="submit" value="🔍" class="btn btn-secondary">
-  </form>
-  {% if dish_list %}
-    <ul>
-      {% for dish in dish_list %}
-        <li>
-          <a href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.id }}</a>
-          {{ dish.name }} ({{ dish.dish_type.name }})
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>There are no dishes in menu</p>
-  {% endif %}
+  <header class="header-2">
+    <div class="page-header min-vh-75 relative" style="background-image: url('{{ ASSETS_ROOT }}/img/hero-bg.jpg')">
+      <span class="mask bg-gradient-primary opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Kitchen service</h1>
+            <p class="lead text-white mt-3">Fast food restaurant`s kitchen management <br />  </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+    <h1>
+      Our menu!
+      <a href="{% url 'kitchen_service:dish-create' %}" class="btn btn-info link-to-page">
+        Create
+      </a>
+    </h1>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="🔍" class="btn btn-info">
+    </form>
+    {% if dish_list %}
+      <ul>
+        {% for dish in dish_list %}
+          <li>
+            <a class="link-success" href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.id }}</a>
+            {{ dish.name }} ({{ dish.dish_type.name }})
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There are no dishes in menu</p>
+    {% endif %}
+    {% include "includes/pagination.html" %}
+  </div>
 {% endblock %}

@@ -1,11 +1,26 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
 
 {% block content %}
-  <h1>Delete dish?</h1>
-  <form action="" method="post">
-    {% csrf_token %}
+  <header class="header-2">
+    <div class="page-header min-vh-75 relative" style="background-image: url('{{ ASSETS_ROOT }}/img/hero-bg.jpg')">
+      <span class="mask bg-gradient-primary opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Kitchen service</h1>
+            <p class="lead text-white mt-3">Fast food restaurant`s kitchen management <br />  </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+    <h1>Delete dish?</h1>
+    <form action="" method="post">
+      {% csrf_token %}
 
-    <input type="submit" value="Yes" class="btn btn-danger">
-    <a class="btn btn-primary"  href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">No</a>
-  </form>
+      <input type="submit" value="Yes" class="btn btn-danger">
+      <a class="btn btn-primary"  href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">No</a>
+    </form>
+  </div>
 {% endblock %}
