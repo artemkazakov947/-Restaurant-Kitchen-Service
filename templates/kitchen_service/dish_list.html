@@ -27,16 +27,34 @@
       <input type="submit" value="🔍" class="btn btn-info">
     </form>
     {% if dish_list %}
-      <ul>
-        {% for dish in dish_list %}
-          <li>
-            <a class="link-success" href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.id }}</a>
-            {{ dish.name }} ({{ dish.dish_type.name }})
-          </li>
-        {% endfor %}
-      </ul>
+      <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Dish type</th>
+      </tr>
+
+      {% for dish in dish_list %}
+        <tr>
+          <td>
+              <a style="color: #0d6efd" href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.id }}</a>
+          </td>
+          <td>
+              {{ dish.name }}
+          </td>
+          <td>
+            {{ dish.price }}
+            </td>
+            <td>
+              {{ dish.dish_type }}
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+
     {% else %}
-      <p>There are no dishes in menu</p>
+      <p>There are no types of dishes in the service.</p>
     {% endif %}
     {% include "includes/pagination.html" %}
   </div>
