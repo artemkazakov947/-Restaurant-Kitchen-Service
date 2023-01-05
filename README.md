@@ -15,6 +15,10 @@ cd kitchen
 pip install virtualenv venv
 venv\Scripts\activate
 pip install -r requirementes.txt
+set DJANGO_DEBUG=TRUE
+set DJANGO_SECRET_KEY=<your secret key>
+set DATABASE_URL=<your database url>
+python manage.py migrate
 python manage.py runserver 
 ```
 
@@ -25,7 +29,7 @@ python manage.py runserver
 
 ### Deploying / Publishing
 
-[taxi-service project deployed to Render](https://kitchen-service-qvqc.onrender.com//)
+[taxi-service project deployed to Render](https://kitchen-service-qvqc.onrender.com)
 
 
 
