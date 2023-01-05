@@ -35,6 +35,9 @@
               </div>
             </div>
             <div class="card-body">
+              {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+              {% endif %}
               <form role="form" method="post" action="" class="text-start">
 
                 {% csrf_token %}
