@@ -29,7 +29,7 @@ python manage.py runserver
 
 ### Deploying / Publishing
 
-[taxi-service project deployed to Render](https://kitchen-service-qvqc.onrender.com)
+[kitchen-service project deployed to Render](https://kitchen-service-qvqc.onrender.com)
 
 
 
