@@ -17,9 +17,16 @@
   <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
     <h1>
       {{ dish.name }}
-       <a href="{% url 'kitchen_service:recipe-detail' pk=dish.recipe.id %}" class="btn btn-info link-to-page">
-        Recipe
-      </a>
+      {% if dish.recipe %}
+         <a href="{% url 'kitchen_service:recipe-detail' pk=dish.recipe.id %}" class="btn btn-info link-to-page">
+          Recipe
+        </a>
+      {% else %}
+        <a href="{% url 'kitchen_service:recipe-create' %}?dish={{ dish.id }}" class="btn btn-info link-to-page">
+          Create Recipe
+        </a>
+      {% endif %}
+
     </h1>
     <p>Dish Type: ({{ dish.dish_type.name }})</p>
     <h1>
