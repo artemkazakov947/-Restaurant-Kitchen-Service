@@ -38,6 +38,7 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = "__all__"
+        widgets = {'dish': forms.HiddenInput()}
 
 
 class DishSearchForm(forms.Form):

@@ -89,10 +89,9 @@ class DishDetailView(LoginRequiredMixin, generic.DetailView):
 class DishCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
     form_class = DishForm
-    # success_url = reverse_lazy("kitchen_service:recipe-create")
 
     def get_success_url(self):
-        return reverse_lazy("kitchen_service:recipe-create") + f"?dish={self.object.id}"
+        return reverse_lazy("kitchen_service:dish-list") + f"{self.object.id}/"
 
 
 class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -144,7 +143,9 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
 class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
     form_class = RecipeForm
-    success_url = reverse_lazy("kitchen_service:dish-list")
+
+    def get_success_url(self):
+        return reverse_lazy("kitchen_service:dish-detail", args=[self.request.GET.get("dish")])
 
     def get_initial(self):
         initial = super(RecipeCreateView, self).get_initial()
