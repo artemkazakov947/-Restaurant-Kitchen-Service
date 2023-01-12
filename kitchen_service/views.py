@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -77,8 +78,10 @@ class DishListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         form = DishSearchForm(self.request.GET)
 
-        if form.is_valid():
-            return self.queryset.filter(Q(name__icontains=form.cleaned_data["name"]) | Q(description__icontains=form.cleaned_data["name"]))
+        if form.is_valid() and form.cleaned_data["name"] != "":
+            search_vector = SearchVector("name", "description")
+            query = SearchQuery(form.cleaned_data["name"])
+            return self.queryset.annotate(rank=SearchRank(search_vector, query)).filter(rank__gte=0.01).order_by("-rank")
         return self.queryset
 
 
@@ -145,11 +148,11 @@ class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = RecipeForm
 
     def get_success_url(self):
-        return reverse_lazy("kitchen_service:dish-detail", args=[self.request.GET.get("dish")])
+        return reverse_lazy("kitchen_service:dish-detail", args=[self.kwargs["pk"]])
 
     def get_initial(self):
         initial = super(RecipeCreateView, self).get_initial()
-        initial["dish"] = self.request.GET.get("dish")
+        initial["dish"] = self.kwargs["pk"]
         return initial
 
 
