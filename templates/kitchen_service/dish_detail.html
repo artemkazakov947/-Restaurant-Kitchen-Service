@@ -22,7 +22,7 @@
           Recipe
         </a>
       {% else %}
-        <a href="{% url 'kitchen_service:recipe-create' %}?dish={{ dish.id }}" class="btn btn-info link-to-page">
+        <a href="{% url 'kitchen_service:dish-detail' pk=dish.id %}recipe-create/" class="btn btn-info link-to-page">
           Create Recipe
         </a>
       {% endif %}

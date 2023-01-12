@@ -25,7 +25,6 @@
   {% if dish_type_list %}
     <table class="table">
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Update</th>
         <th>Delete</th>
@@ -33,9 +32,6 @@
 
       {% for type in dish_type_list %}
         <tr>
-          <td>
-              {{ type.id }}
-          </td>
           <td>
               {{ type.name }}
           </td>
@@ -57,5 +53,6 @@
   {% else %}
       <p>There are no types of dishes in the service.</p>
   {% endif %}
+  </div>>
   {% include "includes/pagination.html" %}
 {% endblock %}

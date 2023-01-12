@@ -22,15 +22,13 @@ python manage.py migrate
 python manage.py runserver 
 ```
 
-  - You can use following superuser (or create another one by yourself):
-  - Login: `chef`
-  - Password: `chef12345`
-
-
 ### Deploying / Publishing
 
 [kitchen-service project deployed to Render](https://kitchen-service-qvqc.onrender.com)
 
+  - You can use following superuser (or create another one by yourself):
+  - Login: `chef`
+  - Password: `chef12345`
 
 
 ## Features

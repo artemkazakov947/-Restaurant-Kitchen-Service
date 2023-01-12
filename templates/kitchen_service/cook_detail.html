@@ -26,14 +26,12 @@
     <p><strong>Spezialization:</strong> {{ cook.specialization }}</p>
 
     <div class="ml-3">
-      <h4>Dishes</h4>
+      <h4>Dishes:</h4>
 
       {% for dish in cook.dishes.all %}
           <hr>
           <p><strong>Dish:</strong> {{ dish.name }}</p>
           <p><strong>Type:</strong> {{ dish.dish_type.name }}</p>
-          <p class="text-muted"><strong>Id:</strong> {{dish.id}}</p>
-
       {% empty %}
         <p>No dishes!</p>
       {% endfor %}

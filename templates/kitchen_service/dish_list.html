@@ -29,8 +29,8 @@
     {% if dish_list %}
       <table class="table">
       <tr>
-        <th>ID</th>
         <th>Name</th>
+        <th>Description</th>
         <th>Price</th>
         <th>Dish type</th>
       </tr>
@@ -38,10 +38,10 @@
       {% for dish in dish_list %}
         <tr>
           <td>
-              <a style="color: #0d6efd" href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.id }}</a>
+              <a style="color: #0d6efd" href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.name }}</a>
           </td>
           <td>
-              {{ dish.name }}
+            {{ dish.description }}
           </td>
           <td>
             {{ dish.price }}
@@ -54,7 +54,7 @@
     </table>
 
     {% else %}
-      <p>There are no types of dishes in the service.</p>
+      <p>There are NO dishes in the service.</p>
     {% endif %}
     {% include "includes/pagination.html" %}
   </div>
